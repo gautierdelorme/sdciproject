@@ -1,0 +1,5 @@
+version: '3'
+services:
+  datacenter:
+    image: docker:dind
+    privileged: true
