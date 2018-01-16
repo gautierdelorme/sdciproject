@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class VNFManager {
 	private static String DOCKER_URL = "172.17.0.7";
-	private static String DOCKER_GI_IMAGE = "sdciproject/gi";
+	private static String DOCKER_GI_IMAGE = "sdciproject/gi-template";
 	private static DockerCli dockercli = null;
 	
 	private static DockerCli dockerCli() {
