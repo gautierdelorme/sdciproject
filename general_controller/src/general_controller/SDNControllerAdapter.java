@@ -36,4 +36,10 @@ public class SDNControllerAdapter {
 	public static String getFlowInfo(String switchID, String portID) {
 		return RestClient.get("http://10.0.2.15:8080/wm/statistics/bandwidth/" + switchID + "/" + portID + "/json");
 	}
+	
+	public static void enableStats() {
+		JSONObject json = null;
+		json.put("","");
+		RestClient.post("http://10.0.2.15:8080/wm/statistics/config/enable/json", json);
+	}
 }
