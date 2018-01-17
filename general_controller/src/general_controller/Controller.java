@@ -1,5 +1,7 @@
 package general_controller;
 
+import org.apache.log4j.BasicConfigurator;
+
 public class Controller {
 
 	public String getFlow(String switchID, String portID) {
@@ -10,9 +12,11 @@ public class Controller {
 	
 	
 	public static void main(String[] args) {
-		SDNControllerAdapter.enableStats();
+		/*SDNControllerAdapter.enableStats();
 		FlowGestion flowG = new FlowGestion();
-		flowG.start();
+		flowG.start();*/
+		BasicConfigurator.configure();
+		VNFManager.launchGW("nathan");
 		
 	}
 }
