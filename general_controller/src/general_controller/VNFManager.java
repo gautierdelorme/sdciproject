@@ -3,7 +3,8 @@ package general_controller;
 import java.io.IOException;
 
 public class VNFManager {
-	private static String DOCKER_URL = "localhost:2375";
+
+	private static String DOCKER_URL = "172.17.0.7:2375";
 	private static String DOCKER_GI_IMAGE = "sdciproject/gi-template";
 	private static DockerCli dockercli = null;
 	
