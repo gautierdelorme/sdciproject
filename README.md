@@ -7,7 +7,7 @@
 1. Go to your `SDNController` directory and run `java -jar myTarget/sdncontroller.jar` to start the controller.
 1. `./build_topo` to create the topology. (do not forget to run `pingallfull` in mininet shell)
 1. Docker images will be downloaded automatically during the topology creation (and  are available on Docker Hub: https://hub.docker.com/u/sdciproject)
-1. `./start_all` to start all gateways and servers.
+1. `sudo ./start_all` to start all gateways and servers.
 1. To start the client app open new terminal and write: `sudo docker exec -it mn.appserver sh -c "cd /workdir && java -jar iotapp1.jar"`
 1. To start the IoT device #1 open new terminal and write: `sudo docker exec -it mn.gf1 sh -c "cd /workdir && java -jar iotdevice.jar"`
    - to start devices 2 and 3 as well open new terminals and use the same command but replace `mn.gf1` with `mn.gf2` and `mn.gf3`
