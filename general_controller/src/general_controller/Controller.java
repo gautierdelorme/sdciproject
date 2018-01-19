@@ -12,11 +12,12 @@ public class Controller {
 	
 	
 	public static void main(String[] args) {
-		/*SDNControllerAdapter.enableStats();
-		FlowGestion flowG = new FlowGestion();
-		flowG.start();*/
 		BasicConfigurator.configure();
-		SDNControllerAdapter.reRoute("10.0.0.2", "10.0.0.6", "00:00:00:00:00:01", "00:00:00:00:00:04");
+		SDNControllerAdapter.enableStats();
+		FlowGestion flowG = new FlowGestion();
+		flowG.start();
+	
+		//SDNControllerAdapter.reRoute("10.0.0.2", "10.0.0.6", "00:00:00:00:00:01", "00:00:00:00:00:04");
 		
 	}
 }
