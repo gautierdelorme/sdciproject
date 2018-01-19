@@ -7,10 +7,10 @@ public class SDNControllerAdapter {
 	/*
 	 * This method permits to create new roads in json format
 	 */
-	private static JSONObject createRoute(String ipSrc, String ipDst, String ethDst, String ethSrc) {
+	private static JSONObject createRoute(String ipSrc, String ipDst, String ethSrc, String ethDst) {
 		String switchID = "00:00:00:00:00:00:00:02";
 		String actionMan = "set_field=eth_dst->" + ethDst + ",set_field=ipv4_dst->" + ipDst + ",normal";
-		JSONObject json = null;
+		JSONObject json = new JSONObject() ;
 		json.put("switch", switchID);
 		json.put("name", "ZeName");
 		json.put("priority", "36000");

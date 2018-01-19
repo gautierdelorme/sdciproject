@@ -16,7 +16,7 @@ public class Controller {
 		FlowGestion flowG = new FlowGestion();
 		flowG.start();*/
 		BasicConfigurator.configure();
-		VNFManager.launchGW("nathan");
+		SDNControllerAdapter.reRoute("10.0.0.2", "10.0.0.6", "00:00:00:00:00:01", "00:00:00:00:00:04");
 		
 	}
 }
