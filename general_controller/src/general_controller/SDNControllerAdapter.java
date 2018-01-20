@@ -7,10 +7,10 @@ public class SDNControllerAdapter {
 	/*
 	 * This method permits to create new roads in json format
 	 */
-	private static JSONObject createRoute(String ipSrc, String ethSrc, int numCont) {
+	private static JSONObject createRoute(String ipSrc, String ethSrc, int portCont) {
 		String switchID = "00:00:00:00:00:00:00:02";
 		String ipDst = "172.17.0.7";
-		String actionMan = "set_field=eth_dst->02:42:ac:11:00:07"  + ",set_field=ipv4_dst->" + ipDst +":"+numCont+ ",normal";
+		String actionMan = "set_field=eth_dst->02:42:ac:11:00:07"  + ",set_field=ipv4_dst->" + ipDst +":"+portCont+ ",normal";
 		JSONObject json = new JSONObject() ;
 		json.put("switch", switchID);
 		json.put("name", "ZeName");
@@ -27,7 +27,7 @@ public class SDNControllerAdapter {
 	/*
 	 * This method permits to updload new roads to a switch
 	 */
-	public static void reRoute(String ipSrc, String ethDst, String ethSrc,int numCont) {
+	public static void reRoute(String ipSrc, String ethSrc,int numCont) {
 		RestClient.post("http://10.0.2.15:8080/wm/staticflowpusher/json", createRoute(ipSrc,ethSrc,numCont));
 	}
 
