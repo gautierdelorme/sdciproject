@@ -36,9 +36,9 @@ public class Controller {
 			ctx.result("Well done you've redirected GF1 to your new gateway, Nane of the gateway : "+ ctx.param("name")+ "\n");
 		});
 		
-		serv.post("rules/delete", ctx -> {
+		serv.delete("rules/delete", ctx -> {
 			JSONObject jsonBody = ctx.bodyAsClass(JSONObject.class);
-			jsonBody.get("name");
+			SDNControllerAdapter.deleteRoute((String)jsonBody.get("name"));
 			ctx.result("You have deleted the rule : "+ jsonBody.get("name") + "\n");
 		});
 		

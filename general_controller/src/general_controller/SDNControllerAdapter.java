@@ -31,6 +31,13 @@ public class SDNControllerAdapter {
 		RestClient.post("http://10.0.2.15:8080/wm/staticflowpusher/json", createRoute(ipSrc,ethSrc,numCont,ruleName));
 	}
 
+	public static void deleteRoute(String ruleName) {
+		String switchID = "00:00:00:00:00:00:00:02";
+		JSONObject json = new JSONObject() ;
+		json.put("switch", switchID);
+		json.put("name", ruleName);
+		RestClient.delete("http://10.0.2.15:8080/wm/staticflowpusher/json", json);
+	}
 	/*
 	 * This method permits to get flow from a switch and a portID
 	 * */
