@@ -20,8 +20,7 @@ public class Controller {
 		Javalin serv = Javalin.start(9500);
 
 		/*
-		 * This line is call with a get /trigger/"name of the new container" it will
-		 * create it and then reroute GF1 to this new container instead of GI
+		 * Create it and then reroute a finale gateway to this new container instead of the initial gateway
 		 */
 		serv.get("/trigger", ctx -> {
 			String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -31,8 +30,7 @@ public class Controller {
 		});
 
 		/*
-		 * Dans notre cas la regle sera renomme du nom de la nouvelle GW pour des
-		 * questions de praticites
+		 * Delete rule by name
 		 */
 		serv.delete("rules/:ruleName", ctx -> {
 			SDNControllerAdapter.deleteRoute(ctx.param("ruleName"));
@@ -58,8 +56,13 @@ public class Controller {
 		 * Stop the thread
 		 */
 		serv.get("/mode-auto-off", ctx -> {
-			flowG.interrupt();
-			ctx.result("You set auto-mode off ! \n");
+			if(!flowG.isAlive()){
+				flowG.interrupt();
+				ctx.result("You set auto-mode off ! \n");
+			}else {
+				ctx.result("Mode off already active \n");
+			}
+			
 		});
 
 	}
