@@ -43,7 +43,7 @@ public class SDNControllerAdapter {
 	/*
 	 * This method permits to get flow from a switch and a portID
 	 * */
-	public static String getFlowInfo(String switchID, String portID) {
+	public static JSONObject getFlowInfo(String switchID, String portID) {
 		return RestClient.get("http://10.0.2.15:8080/wm/statistics/bandwidth/" + switchID + "/" + portID + "/json");
 	}
 	

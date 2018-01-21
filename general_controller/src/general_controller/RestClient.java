@@ -17,11 +17,14 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class RestClient {
 
-	public static String get(String url) {
+	public static JSONObject get(String url) {
 		// Create an instance of HttpClient.
 		HttpClient client = new HttpClient();
 
@@ -31,6 +34,7 @@ public class RestClient {
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
 		String jsonString = null;
+		JSONObject json =null;
 		try {
 			// Execute the method.
 			int statusCode = client.executeMethod(method);
@@ -43,7 +47,16 @@ public class RestClient {
 
 			// Retrieve the response body in String
 			jsonString = method.getResponseBodyAsString();
-
+			
+			try {
+				JSONArray jsonArray =  (JSONArray) new JSONParser().parse(jsonString);
+				for (int i = 0; i <  jsonArray.size(); i++) {
+					json = (JSONObject) jsonArray.get(i);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// Deal with the response.
 			// Use caution: ensure correct character encoding and is not binary data
 			System.out.println(new String(responseBody));
@@ -57,7 +70,7 @@ public class RestClient {
 			// Release the connection
 			method.releaseConnection();
 		}
-		return jsonString;
+		return json;
 	}
 
 	public static void post(String url, JSONObject json) {
@@ -93,8 +106,8 @@ public class RestClient {
 			method.releaseConnection();
 		}
 	}
-
 	
+
 	
 	private static class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
 		public static final String METHOD_NAME = "DELETE";

@@ -9,9 +9,6 @@ import io.javalin.Javalin;
 
 public class Controller {
 
-	public String getFlow(String switchID, String portID) {
-		return SDNControllerAdapter.getFlowInfo(switchID, portID);
-	}
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -31,6 +28,10 @@ public class Controller {
 			ctx.result("RULE # \n : " + name + "\n");
 		});
 
+		serv.post("stats/enable", ctx ->{
+			SDNControllerAdapter.enableStats();
+			ctx.result("Enable statistics on mininet network\n");
+		});
 		/*
 		 * Delete rule by name
 		 */
