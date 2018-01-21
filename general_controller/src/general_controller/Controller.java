@@ -45,9 +45,9 @@ public class Controller {
 		serv.get("/mode-auto-on", ctx -> {
 			if(!flowG.isAlive()){
 				flowG.start();
-				ctx.result("You set auto-mode on ! \n");
+				ctx.result("You set autonomous flow gestion on ! \n");
 			}else {
-				ctx.result("Mode on already active \n");
+				ctx.result("Autonomous flow gestion already enabled \n");
 			}
 			
 		});
@@ -56,11 +56,11 @@ public class Controller {
 		 * Stop the thread
 		 */
 		serv.get("/mode-auto-off", ctx -> {
-			if(!flowG.isAlive()){
+			if(flowG.isAlive()){
 				flowG.interrupt();
-				ctx.result("You set auto-mode off ! \n");
+				ctx.result("You set autonomous flow gestion off ! \n");
 			}else {
-				ctx.result("Mode off already active \n");
+				ctx.result("Autonomous flow gestion already disabled \n");
 			}
 			
 		});
