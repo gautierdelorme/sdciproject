@@ -16,18 +16,8 @@ public class Controller {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		FlowGestion flowG = new FlowGestion();
-		/*
-		 * SDNControllerAdapter.enableStats(); FlowGestion flowG = new FlowGestion();
-		 * flowG.start();
-		 */
-		/*
-		 * int portNathan = VNFManager.launchGW("nathan");
-		 * VNFManager.getInfoContainer("nathan");
-		 */
+		
 		Javalin serv = Javalin.start(9500);
-		serv.get("/hello", ctx -> {
-			ctx.result("Hello \n");
-		});
 
 		/*
 		 * This line is call with a get /trigger/"name of the new container" it will
@@ -37,15 +27,17 @@ public class Controller {
 			String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			int portCont = VNFManager.launchGW(name);
 			SDNControllerAdapter.reRoute("10.0.0.4", "00:00:00:00:00:02", portCont, name);
-			ctx.result("Well done you've redirected GF1 to your new gateway, Name of the gateway : " + name + "\n");
+			ctx.result("RULE # \n : " + name + "\n");
 		});
 
 		/*
 		 * Dans notre cas la regle sera renomme du nom de la nouvelle GW pour des
 		 * questions de praticites
 		 */
-		serv.delete("rules/delete/:ruleName", ctx -> {
+		serv.delete("rules/:ruleName", ctx -> {
 			SDNControllerAdapter.deleteRoute(ctx.param("ruleName"));
+			VNFManager.stopGW(ctx.param("ruleName"));
+			VNFManager.removeGW(ctx.param("ruleName"));
 			ctx.result("You have deleted the rule : " + ctx.param("ruleName") + "\n");
 		});
 
@@ -53,8 +45,13 @@ public class Controller {
 		 * Start the thread and make automatic flow gestion
 		 */
 		serv.get("/mode-auto-on", ctx -> {
-			flowG.start();
-			ctx.result("You set auto-mode on ! \n");
+			if(!flowG.isAlive()){
+				flowG.start();
+				ctx.result("You set auto-mode on ! \n");
+			}else {
+				ctx.result("Mode on already active \n");
+			}
+			
 		});
 
 		/*
