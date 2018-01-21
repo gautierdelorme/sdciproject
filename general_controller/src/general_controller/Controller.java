@@ -15,6 +15,7 @@ public class Controller {
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
+		FlowGestion flowG = new FlowGestion();
 		/*
 		 * SDNControllerAdapter.enableStats(); FlowGestion flowG = new FlowGestion();
 		 * flowG.start();
@@ -52,7 +53,7 @@ public class Controller {
 		 * Start the thread and make automatic flow gestion
 		 */
 		serv.get("/mode-auto-on", ctx -> {
-			FlowGestion.start1();
+			flowG.start();
 			ctx.result("You set auto-mode on ! \n");
 		});
 
@@ -60,7 +61,7 @@ public class Controller {
 		 * Stop the thread
 		 */
 		serv.get("/mode-auto-off", ctx -> {
-			FlowGestion.interrupted();
+			flowG.interrupt();
 			ctx.result("You set auto-mode off ! \n");
 		});
 

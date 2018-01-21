@@ -2,7 +2,6 @@ package general_controller;
 
 public class FlowGestion extends Thread {
 	private volatile String flow;
-
 	public FlowGestion() {
 		this.flow = null;
 	}
@@ -20,8 +19,6 @@ public class FlowGestion extends Thread {
 			}
 		}
 	}
-	public static void start1() {
-		FlowGestion flowG = new FlowGestion();
-		flowG.start();
-	}
+	
+	
 }
