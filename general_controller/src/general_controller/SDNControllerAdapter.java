@@ -10,7 +10,7 @@ public class SDNControllerAdapter {
 	private static JSONObject createRoute(String ipSrc, String ethSrc, int portCont, String ruleName) {
 		String switchID = "00:00:00:00:00:00:00:02";
 		String ipDst = "172.17.0.7";
-		String actionMan = "set_field=eth_dst->02:42:ac:11:00:07"  + ",set_field=ipv4_dst->" + ipDst +":"+portCont+ ",normal";
+		String actionMan = "set_field=eth_dst->"+VNFManager.MAC_ADDRESS_DATACENTER  + ",set_field=ipv4_dst->" + ipDst +":"+portCont+ ",normal";
 		JSONObject json = new JSONObject() ;
 		json.put("switch", switchID);
 		json.put("name", ruleName);

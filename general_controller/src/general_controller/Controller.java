@@ -16,11 +16,13 @@ public class Controller {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		FlowGestion flowG = new FlowGestion();
-		
+
 		Javalin serv = Javalin.start(9500);
 
 		/*
-		 * Create it and then reroute a finale gateway to this new container instead of the initial gateway
+		 * Create it and then reroute a finale gateway to this new container instead of
+		 * the initial gateway
+		 * NEXT VERSION : add possibility to reroute every GF to a new GW
 		 */
 		serv.get("/trigger", ctx -> {
 			String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -43,26 +45,26 @@ public class Controller {
 		 * Start the thread and make automatic flow management
 		 */
 		serv.get("/mode-auto-on", ctx -> {
-			if(!flowG.isAlive()){
+			if (!flowG.isAlive()) {
 				flowG.start();
 				ctx.result("You set autonomous flow management on ! \n");
-			}else {
+			} else {
 				ctx.result("Autonomous flow management already enabled \n");
 			}
-			
+
 		});
 
 		/*
 		 * Stop the thread
 		 */
 		serv.get("/mode-auto-off", ctx -> {
-			if(flowG.isAlive()){
+			if (flowG.isAlive()) {
 				flowG.interrupt();
 				ctx.result("You set autonomous flow management off ! \n");
-			}else {
+			} else {
 				ctx.result("Autonomous flow management already disabled \n");
 			}
-			
+
 		});
 
 	}
