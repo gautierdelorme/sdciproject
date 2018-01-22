@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.log4j.BasicConfigurator;
+import org.json.simple.JSONObject;
 
 import io.javalin.Javalin;
 
@@ -24,7 +25,7 @@ public class Controller {
 		serv.get("/trigger", ctx -> {
 			String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			int portCont = VNFManager.launchGW(name);
-			SDNControllerAdapter.reRoute("10.0.0.4", "00:00:00:00:00:02", portCont, name);
+			SDNControllerAdapter.reRoute("172.17.0.3", "00:00:00:00:00:02", portCont, name);
 			ctx.result("RULE # \n : " + name + "\n");
 		});
 
@@ -66,6 +67,14 @@ public class Controller {
 				ctx.result("Autonomous flow management already disabled \n");
 			}
 
+		});
+		
+		serv.get("/get-flow", ctx ->{
+			JSONObject flow= SDNControllerAdapter.getFlowInfo("00:00:00:00:00:00:00:02", "2");
+			String recep1 = (flow.get("bits-per-second-rx").toString());
+			String trans1 = (flow.get("bits-per-second-tx").toString());
+			ctx.result("Receive flow bit per second : "+recep1+", transmit data bit per second : "+trans1+"\n");
+			
 		});
 
 	}
