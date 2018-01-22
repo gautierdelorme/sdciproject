@@ -1,7 +1,0 @@
-#!/bin/bash
-
-docker exec mn.appserver sh -c "cd /workdir/in-cse && ./start.sh" &>/dev/null
-docker exec mn.gi sh -c "cd /workdir/mn-cse && ./start.sh" &>/dev/null
-docker exec mn.gf1 sh -c "cd /workdir/mn-cse && ./start.sh" &>/dev/null
-docker exec mn.gf2 sh -c "cd /workdir/mn-cse && ./start.sh" &>/dev/null
-docker exec mn.gf3 sh -c "cd /workdir/mn-cse && ./start.sh" &>/dev/null
