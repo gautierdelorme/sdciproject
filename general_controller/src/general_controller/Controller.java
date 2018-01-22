@@ -18,20 +18,15 @@ public class Controller {
 
 		/*
 		 * Create it and then reroute a finale gateway to this new container instead of
-		 * the initial gateway NEXT VERSION : add possibility to reroute every GF to a
-		 * new GW
+		 * the initial gateway 
 		 */
 		serv.get("/trigger", ctx -> {
 			String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			int portCont = VNFManager.launchGW(name);
-			if (ctx.queryParam("ipSrc") == null || ctx.queryParam("macAddress") == null
-					|| ctx.queryParam("switchID") == null) {
-				SDNControllerAdapter.reRoute("172.17.0.3", "00:00:00:00:00:02", "00:00:00:00:00:00:00:03", portCont,
-						name);
-			} else {
-				SDNControllerAdapter.reRoute(ctx.queryParam("ipSrc"), "00:00:00:00:00:0" + ctx.queryParam("macAddress"),
-						"00:00:00:00:00:00:00:0" + ctx.queryParam("switchID"), portCont, name);
-			}
+			String ipSrc = ctx.queryParam("ipSrc")!=null? ctx.queryParam("ipSrc") : "172.17.0.3";
+			String macAddress = ctx.queryParam("macAddress")!=null ? ctx.queryParam("macAddress") : "2";
+			String switchID = ctx.queryParam("switchID")!=null ? ctx.queryParam("switchID") : "3";
+			SDNControllerAdapter.reRoute(ipSrc, "00:00:00:00:00:0" + macAddress, "00:00:00:00:00:00:00:0" + switchID, portCont, name);
 			ctx.result("RULE # \n : " + name + "\n");
 		});
 
