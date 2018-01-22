@@ -18,15 +18,16 @@ public class Controller {
 
 		/*
 		 * Create it and then reroute a finale gateway to this new container instead of
-		 * the initial gateway 
+		 * the initial gateway
 		 */
 		serv.get("/trigger", ctx -> {
 			String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			int portCont = VNFManager.launchGW(name);
-			String ipSrc = ctx.queryParam("ipSrc")!=null? ctx.queryParam("ipSrc") : "172.17.0.3";
-			String macAddress = ctx.queryParam("macAddress")!=null ? ctx.queryParam("macAddress") : "2";
-			String switchID = ctx.queryParam("switchID")!=null ? ctx.queryParam("switchID") : "3";
-			SDNControllerAdapter.reRoute(ipSrc, "00:00:00:00:00:0" + macAddress, "00:00:00:00:00:00:00:0" + switchID, portCont, name);
+			String ipSrc = ctx.queryParam("ipSrc") != null ? ctx.queryParam("ipSrc") : "172.17.0.3";
+			String macAddress = ctx.queryParam("macAddress") != null ? ctx.queryParam("macAddress") : "2";
+			String switchID = ctx.queryParam("switchID") != null ? ctx.queryParam("switchID") : "3";
+			SDNControllerAdapter.reRoute(ipSrc, "00:00:00:00:00:0" + macAddress, "00:00:00:00:00:00:00:0" + switchID,
+					portCont, name);
 			ctx.result("RULE # \n : " + name + "\n");
 		});
 
@@ -71,8 +72,9 @@ public class Controller {
 		});
 
 		serv.get("/get-flow", ctx -> {
-			JSONObject flow = SDNControllerAdapter.getFlowInfo("00:00:00:00:00:00:00:0" + ctx.queryParam("switchID"),
-					ctx.queryParam("port"));
+			String switchID = ctx.queryParam("switchID") != null ? ctx.queryParam("switchID") : "2";
+			String port = ctx.queryParam("port") != null ? ctx.queryParam("port") : "2";
+			JSONObject flow = SDNControllerAdapter.getFlowInfo("00:00:00:00:00:00:00:0" + switchID, port);
 			String recep1 = (flow.get("bits-per-second-rx").toString());
 			String trans1 = (flow.get("bits-per-second-tx").toString());
 			ctx.result("Receive flow bit per second : " + recep1 + ", transmit data bit per second : " + trans1 + "\n");
