@@ -34,7 +34,7 @@ public class RestClient {
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
 		String jsonString = null;
-		JSONObject json =null;
+		JSONObject json = null;
 		try {
 			// Execute the method.
 			int statusCode = client.executeMethod(method);
@@ -47,10 +47,10 @@ public class RestClient {
 
 			// Retrieve the response body in String
 			jsonString = method.getResponseBodyAsString();
-			
+
 			try {
-				JSONArray jsonArray =  (JSONArray) new JSONParser().parse(jsonString);
-				for (int i = 0; i <  jsonArray.size(); i++) {
+				JSONArray jsonArray = (JSONArray) new JSONParser().parse(jsonString);
+				for (int i = 0; i < jsonArray.size(); i++) {
 					json = (JSONObject) jsonArray.get(i);
 				}
 			} catch (ParseException e) {
@@ -106,9 +106,7 @@ public class RestClient {
 			method.releaseConnection();
 		}
 	}
-	
 
-	
 	private static class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
 		public static final String METHOD_NAME = "DELETE";
 
@@ -134,7 +132,7 @@ public class RestClient {
 	@SuppressWarnings("deprecation")
 	public static void delete(String url, JSONObject json) {
 		// Create an instance of HttpClient.
-        CloseableHttpClient client = HttpClients.createDefault();
+		CloseableHttpClient client = HttpClients.createDefault();
 		// Create a method instance.
 		HttpDeleteWithBody method = new HttpDeleteWithBody(url);
 		StringEntity requestEntity = null;

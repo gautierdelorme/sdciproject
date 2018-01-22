@@ -49,7 +49,6 @@ public class SDNControllerAdapter {
 	
 	public static void enableStats() {
 		JSONObject json = new JSONObject();
-		json.put("","");
-		RestClient.post("http://10.0.2.15:8080/wm/statistics/config/enable/json", json);
+		RestClient.post("http://10.0.2.15:8080/wm/statistics/config/enable/json",json);
 	}
 }
