@@ -70,7 +70,7 @@ public class Controller {
 		});
 		
 		serv.get("/get-flow", ctx ->{
-			JSONObject flow= SDNControllerAdapter.getFlowInfo("00:00:00:00:00:00:00:02", "2");
+			JSONObject flow= SDNControllerAdapter.getFlowInfo("00:00:00:00:00:00:00:0"+ctx.queryParam("switchID"), ctx.queryParam("port"));
 			String recep1 = (flow.get("bits-per-second-rx").toString());
 			String trans1 = (flow.get("bits-per-second-tx").toString());
 			ctx.result("Receive flow bit per second : "+recep1+", transmit data bit per second : "+trans1+"\n");
