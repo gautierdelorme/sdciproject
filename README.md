@@ -1,5 +1,8 @@
 # sdciproject
 
+
+**See the [slides](slides.pdf) or the [report](report.pdf) for details (french).**
+
 ## Developer Setup
 
 
